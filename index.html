@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Łopacki na dziś to...</title>
+    <style>
+        body {
+            padding:0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-image: url("fanart.png");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+
+        }
+        .main{
+            text-align: center;
+            margin:50px;}
+        h1{
+            color: white;
+            text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+        }
+
+        p{
+            color: white;
+            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+        }
+        button {
+            background-color: #e6e4df;
+            padding: 10px 15px;
+            border: 1px solid black;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: .2s;
+        }
+
+        button:hover{
+            background-color: #96948f;
+            color: white;
+        }
+
+        #zdjecieContainer {
+            margin-top: 10px;
+            max-width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        video{
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        @media (max-width: 768px) {
+            #zdjecieContainer {
+                max-width: 100%;
+            }
+        }
+        marquee{
+            width:100%;
+            background-color:beige;
+            padding: 0;
+            margin: 0;
+        }
+        a{
+            padding-left:20px;
+            padding-right:20px;
+            text-decoration:none;
+            display:inline-block;
+            border: 1px solid transparent;
+        }
+        a:hover{
+            background-color: rgb(66, 243, 213);
+            border: 1px solid rgb(34, 34, 34);
+        }
+    </style>
+</head>
+<body>
+    <marquee behavior="alternate" direction="right" onmouseover="this.stop();" onmouseout="this.start()";>
+        <a target="_blank" title="lopata" href="https://open.spotify.com/playlist/5KBEctYecndSfWIBjUQbjT?si=55c632cdd5754727">💖💗🥰💞</a>
+        <a target="_blank" title="siłka" href="https://open.spotify.com/playlist/728tmV9LfKVWqJNM76p6lS?si=82db57ecbd364cdc">🏋🏽🔥💪🏼🎧</a>
+        <a target="_blank" title="ai" href="https://suno.com/playlist/df32d558-3e75-414e-90ff-a97c742dd4f8">🤖🧠🦾֎</a>
+        <a target="_blank" title="łopata theme" href="https://youtu.be/aSTcjuHxFIM?si=7sbe37-BHmtUveDx">🚨OFICJALNY TELEDYSK🚨</a>
+    </marquee>
+    <div class="main">
+        <h1>Jakim Łopackim dzisiaj jesteś?</h1>
+        <button onclick="getRandomMedia()">Przekonaj się</button>
+        <div id="zdjecieContainer">
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', function () {
+            let adsDiv = document.getElementById('ads');
+            let ads_bottom_static = document.getElementById('ads_bottom_static');
+            if (adsDiv || ads_bottom_static) {
+                adsDiv.remove();
+                ads_bottom_static.remove();
+            }
+        });
+        function getRandomMedia() {
+            fetch('get_random_image.php')
+            .then(response => response.json())
+            .then(data => {
+                const fileExtension = data.nazwa_pliku.split('.').pop().toLowerCase();
+    
+                const mediaElement = fileExtension == 'mp4' ? document.createElement('video') : document.createElement('img');
+    
+                mediaElement.src = 'img/' + data.nazwa_pliku;
+                mediaElement.autoplay = true;
+                mediaElement.loop = true;
+
+                const mediaContainer = document.getElementById('zdjecieContainer');
+                mediaContainer.innerHTML = '';
+
+                mediaContainer.appendChild(mediaElement);
+
+                const captionElement = document.createElement('p');
+                captionElement.innerText = data.podpis;
+                mediaContainer.appendChild(captionElement);
+            })
+            .catch(error => console.error('Błąd pobierania danych: ', error));
+        }
+    </script>
+</body>
+</html>
