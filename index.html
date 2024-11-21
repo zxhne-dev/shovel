@@ -5,85 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Łopacki na dziś to...</title>
     <style>
+        :root {
+            --glow: #ff69b4;
+        }
+
         body {
-            padding:0;
+            padding: 0;
             font-family: Arial, sans-serif;
             margin: 0;
             background-image: url("fanart.png");
             background-repeat: no-repeat;
             background-size: 100% 100%;
             background-attachment: fixed;
-
         }
-        .main{
+        .main {
             text-align: center;
-            margin:50px;}
-        h1{
-            color: white;
-            text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+            margin: 50px;
         }
-
-        p{
+        h1 {
             color: white;
-            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+            text-shadow: 0 0 5px #000000, 0 0 7px #000000;
+        }
+        p {
+            color: white;
+            text-shadow: 0 0 5px #000000, 0 0 7px #000000;
         }
         button {
-            background-color: #e6e4df;
-            padding: 10px 15px;
-            border: 1px solid black;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: .2s;
-        }
-
-        button:hover{
-            background-color: #96948f;
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            border-radius: 50px;
             color: white;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+            animation: bounce 1s infinite;
+            box-shadow: 0 0 20px var(--glow);
         }
-
+        button:hover {
+            transform: scale(1.1);
+            animation: wiggle 0.5s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg) scale(1.1); }
+            25% { transform: rotate(-5deg) scale(1.1); }
+            75% { transform: rotate(5deg) scale(1.1); }
+        }
         #zdjecieContainer {
             margin-top: 10px;
             max-width: 40%;
             margin-left: auto;
             margin-right: auto;
+            
         }
-        video{
+        video {
             max-width: 100%;
             height: auto;
             border: 1px solid #ccc;
+            box-shadow: 0 0 20px var(--glow);
         }
         img {
             max-width: 100%;
             height: auto;
             border: 1px solid #ccc;
+            box-shadow: 0 0 20px var(--glow);
         }
         @media (max-width: 768px) {
             #zdjecieContainer {
                 max-width: 100%;
             }
         }
-        marquee{
-            width:100%;
-            background-color:beige;
+        marquee {
+            width: 100%;
+            background-color: beige;
             padding: 0;
             margin: 0;
         }
-        a{
-            padding-left:20px;
-            padding-right:20px;
-            text-decoration:none;
-            display:inline-block;
+        a {
+            padding-left: 20px;
+            padding-right: 20px;
+            text-decoration: none;
+            display: inline-block;
             border: 1px solid transparent;
         }
-        a:hover{
+        a:hover {
             background-color: rgb(66, 243, 213);
             border: 1px solid rgb(34, 34, 34);
+        }
+        .sparkle {
+            position: absolute;
+            background: white;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <marquee behavior="alternate" direction="right" onmouseover="this.stop();" onmouseout="this.start()";>
+    <marquee behavior="alternate" direction="right" onmouseover="this.stop();" onmouseout="this.start();">
         <a target="_blank" title="lopata" href="https://open.spotify.com/playlist/5KBEctYecndSfWIBjUQbjT?si=55c632cdd5754727">💖💗🥰💞</a>
         <a target="_blank" title="siłka" href="https://open.spotify.com/playlist/728tmV9LfKVWqJNM76p6lS?si=82db57ecbd364cdc">🏋🏽🔥💪🏼🎧</a>
         <a target="_blank" title="ai" href="https://suno.com/playlist/df32d558-3e75-414e-90ff-a97c742dd4f8">🤖🧠🦾֎</a>
@@ -91,9 +117,8 @@
     </marquee>
     <div class="main">
         <h1>Jakim Łopackim dzisiaj jesteś?</h1>
-        <button onclick="getRandomMedia()">Przekonaj się</button>
-        <div id="zdjecieContainer">
-        </div>
+        <button class="fancy-button" onclick="getRandomMedia()">Przekonaj się</button>
+        <div id="zdjecieContainer"></div>
     </div>
 
     <script>
@@ -105,29 +130,53 @@
                 ads_bottom_static.remove();
             }
         });
+
         function getRandomMedia() {
             fetch('get_random_image.php')
-            .then(response => response.json())
-            .then(data => {
-                const fileExtension = data.nazwa_pliku.split('.').pop().toLowerCase();
-    
-                const mediaElement = fileExtension == 'mp4' ? document.createElement('video') : document.createElement('img');
-    
-                mediaElement.src = 'img/' + data.nazwa_pliku;
-                mediaElement.autoplay = true;
-                mediaElement.loop = true;
-
-                const mediaContainer = document.getElementById('zdjecieContainer');
-                mediaContainer.innerHTML = '';
-
-                mediaContainer.appendChild(mediaElement);
-
-                const captionElement = document.createElement('p');
-                captionElement.innerText = data.podpis;
-                mediaContainer.appendChild(captionElement);
-            })
-            .catch(error => console.error('Błąd pobierania danych: ', error));
+                .then(response => response.json())
+                .then(data => {
+                    const fileExtension = data.nazwa_pliku.split('.').pop().toLowerCase();
+                    const mediaElement = fileExtension === 'mp4' ? document.createElement('video') : document.createElement('img');
+                    mediaElement.src = 'img/' + data.nazwa_pliku;
+                    mediaElement.autoplay = true;
+                    mediaElement.loop = true;
+                    const mediaContainer = document.getElementById('zdjecieContainer');
+                    mediaContainer.innerHTML = '';
+                    mediaContainer.appendChild(mediaElement);
+                    const captionElement = document.createElement('p');
+                    captionElement.innerText = data.podpis;
+                    mediaContainer.appendChild(captionElement);
+                })
+                .catch(error => console.error('Błąd pobierania danych: ', error));
         }
+
+        const button = document.querySelector('.fancy-button');
+
+        function createSparkle(e) {
+            const buttonRect = e.currentTarget.getBoundingClientRect();
+            for (let i = 0; i < 10; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                const x = buttonRect.left + Math.random() * buttonRect.width;
+                const y = buttonRect.top + Math.random() * buttonRect.height;
+                sparkle.style.left = x + 'px';
+                sparkle.style.top = y + 'px';
+                document.body.appendChild(sparkle);
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 1 + Math.random() * 5;
+                const tx = Math.cos(angle) * 100 * velocity;
+                const ty = Math.sin(angle) * 100 * velocity;
+                sparkle.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
+                ], {
+                    duration: 1000,
+                    easing: 'cubic-bezier(0,0,0.2,1)'
+                }).onfinish = () => sparkle.remove();
+            }
+        }
+
+        button.addEventListener('click', createSparkle);
     </script>
 </body>
 </html>
