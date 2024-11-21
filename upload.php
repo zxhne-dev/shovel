@@ -9,42 +9,44 @@
             font-family: 'Arial', sans-serif;
             background-color: #f5f5f5;
             margin: 0;
-            padding: 20px;
+            padding: 2.6vh;
         }
 
         form {
-            max-width: 600px;
+            font-size: 2.1vh;
+            max-width: 78.5vh;
             margin: 0 auto;
             background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 2.6vh;
+            border-radius: 1.05vh;
+            box-shadow: 0 0 1.3vh rgba(0, 0, 0, 0.1);
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 1.05vh;
             font-weight: bold;
         }
 
         input[type="file"],
         input[type="text"] {
+            font-size: 2.1vh;
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 1.3vh;
+            margin-bottom: 1.96vh;
             box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 0.13vh solid #ccc;
+            border-radius: 0.5vh;
         }
 
 
         input[type="submit"] {
             background-color: #e6e4df;
-            padding: 10px 15px;
-            border: 1px solid black;
-            border-radius: 4px;
+            padding: 1.3vh 1.96vh;
+            border: 0.13vh solid black;
+            border-radius: 0.5vh;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 2.1vh;
             transition: .2s;
         }
 
@@ -61,12 +63,12 @@
         }
         p{
             text-align: center;
-            max-width: 600px;
+            max-width: 78.5vh;
             margin: 0 auto;
             background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 2.6vh;
+            border-radius: 1.5vh;
+            box-shadow: 0 0 1.3vh rgba(0, 0, 0, 0.1);
         }
 
     </style>
