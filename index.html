@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Łopacki na dziś to...</title>
-    <style>
+    <style>        
+        @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
+        *{
+            font-family: "Caveat Brush", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
         :root {
             --glow: #ff69b4;
         }
 
         body {
             padding: 0;
-            font-family: Arial, sans-serif;
             margin: 0;
             background-image: url("fanart.png");
             background-repeat: no-repeat;
@@ -20,29 +25,32 @@
         }
         .main {
             text-align: center;
-            margin: 50px;
+            margin: 6.5vh;
         }
         h1 {
+            margin-top: -5vh;
+            font-size: 8vh;
             color: white;
-            text-shadow: 0 0 5px #000000, 0 0 7px #000000;
+            text-shadow: 0 0 0.65vh #000000, 0 0 0.91vh #000000;
         }
         p {
             color: white;
-            text-shadow: 0 0 5px #000000, 0 0 7px #000000;
+            text-shadow: 0 0 0.65vh #000000, 0 0 0.91vh #000000;
         }
         button {
+            margin-bottom: 4vh;
             background: linear-gradient(45deg, #ff69b4, #ff1493);
             border: none;
-            padding: 15px 30px;
-            font-size: 20px;
-            border-radius: 50px;
+            padding: 2vh 4vh;
+            font-size: 3vh;
+            border-radius: 6.5vh;
             color: white;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             transition: transform 0.3s;
             animation: bounce 1s infinite;
-            box-shadow: 0 0 20px var(--glow);
+            box-shadow: 0 0 2.6vh var(--glow);
         }
         button:hover {
             transform: scale(1.1);
@@ -50,7 +58,7 @@
         }
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-1.3vh); }
         }
         @keyframes wiggle {
             0%, 100% { transform: rotate(0deg) scale(1.1); }
@@ -58,7 +66,7 @@
             75% { transform: rotate(5deg) scale(1.1); }
         }
         #zdjecieContainer {
-            margin-top: 10px;
+            margin-top: 1.3vh;
             max-width: 40%;
             margin-left: auto;
             margin-right: auto;
@@ -67,14 +75,14 @@
         video {
             max-width: 100%;
             height: auto;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 20px var(--glow);
+            border: 0.13vh solid #ccc;
+            box-shadow: 0 0 2.6vh var(--glow);
         }
         img {
             max-width: 100%;
             height: auto;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 20px var(--glow);
+            border: 0.13vh solid #ccc;
+            box-shadow: 0 0 2.6vh var(--glow);
         }
         @media (max-width: 768px) {
             #zdjecieContainer {
@@ -84,25 +92,26 @@
         marquee {
             width: 100%;
             background-color: beige;
-            padding: 0;
+            padding: 0.01vh;
             margin: 0;
         }
         a {
-            padding-left: 20px;
-            padding-right: 20px;
+            font-size: 2.1vh
+            padding-left: 2.6vh;
+            padding-right: 2.6vh;
             text-decoration: none;
             display: inline-block;
-            border: 1px solid transparent;
+            border: 0.13vh solid transparent;
         }
         a:hover {
             background-color: rgb(66, 243, 213);
-            border: 1px solid rgb(34, 34, 34);
+            border: 0.13vh solid rgb(34, 34, 34);
         }
         .sparkle {
             position: absolute;
             background: white;
-            width: 4px;
-            height: 4px;
+            width: 0.5vh;
+            height: 0.5vh;
             border-radius: 50%;
             pointer-events: none;
         }
